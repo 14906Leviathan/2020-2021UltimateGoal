@@ -63,6 +63,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
         boolean initReady = false;
         int position = 1;
         ElapsedTime runTime = new ElapsedTime();
+        double parkStrafeDistance = 0;
 
         telemetry.addData("Robot State = ", "NOT READY");
         telemetry.update();
@@ -238,6 +239,8 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE1A:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 30;
 
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
@@ -260,6 +263,8 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE1B:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 30;
 
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
@@ -285,6 +290,8 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE1C:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 30;
 
                     robot.servoLinear.setPosition(robot.SERVO_LINEAR_HG_SHOOT);
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
@@ -347,6 +354,9 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE2A:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 0;
+
                     //Arc turn towards the target zone
                     drive.setDrivePower(0.5,0.13, 0.13, 0.5);
                     sleep(2500);
@@ -365,6 +375,9 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE2B:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 0;
+
                     //Arc turn into the second target zone
                     drive.setDrivePower(0.5,0.38, 0.38, 0.5);
                     sleep(2500);
@@ -378,6 +391,9 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     break;
 
                 case WOBBLE2C:
+                    // set the distance you want to strafe to get to parking position
+                    parkStrafeDistance = 0;
+
                     // Arc turn to the last target zone
                     drive.setDrivePower(0.5,0.35, 0.35, 0.5);
                     sleep(3000);
@@ -405,25 +421,34 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     // Add function to wait till there is 5 seconds left
                     // Reset Linear servo
                     robot.servoLinear.setPosition(robot.SERVO_LINEAR_INTAKE);
-                    // Strafing
-                    drive.driveDistance(0.5, 90, 30);
-                    // Drive forward to the line
+
+                    // wait until there is only 5 seconds left to park
+                    while ((runTime.time()-startTime) <= 25) {
+                        telemetry.addData("Waiting to park: ", (25 - (runTime.time()-startTime)));
+                        telemetry.update();
+                    }   // end of while ((runTime.time()-startTime) <= 25)
+
+                    // Strafe to parking location
+                    drive.driveDistance(0.5, 90, parkStrafeDistance);
+
+                    // Drive forward to the line to park
                     drive.driveDistance(0.5, 0, 20);
+
                     state = State.HALT;
 
                     break;
 
                 case HALT:
-
                     // stop shooter motor
                     drive.shooterControl(0);
 
                     // stop intake motor
                     robot.motorIntake.setPower(0);
 
+                    // shut down the TF Object Detection
                     if (tfod != null) {
                         tfod.shutdown();
-                    }
+                    }   // end of if (tfod != null)
 
                     // Stop all motors
                     drive.motorsHalt();
@@ -442,9 +467,10 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
         robot.motorIntake.setPower(0);          // shut off the intake motor
         drive.motorsHalt();                     // shut off the drive motors
 
+        // shut down the TF Object Detection
         if (tfod != null) {
             tfod.shutdown();                    // disable Tensorflow Object Detection
-        }
+        }   // end of if (tfod != null)
 
         requestOpModeStop();                    // request the entire opMode to Stop
 
