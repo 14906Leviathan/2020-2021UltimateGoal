@@ -13,6 +13,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -27,7 +28,7 @@ import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
 import java.util.List;
 
 @Autonomous(name = "Remote Auto Shooter - Blue", group = "Leviathan")
-//@Disabled
+@Disabled
 
 public class LeviathanAutoShooterBlue extends LinearOpMode {
 

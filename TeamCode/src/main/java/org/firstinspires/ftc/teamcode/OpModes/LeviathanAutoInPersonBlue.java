@@ -281,6 +281,9 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     // Strafe towards the wall - avoiding rings on the field
                     drive.driveDistance(.6, -90, 28);
 
+                    // Strafe towards the wall - avoiding rings on the field
+                    drive.robotCorrect(0.6, -90, 1);
+
                     if (opModeIsActive()) {
                         state = State.SHOOT_RINGS;
                     } else {
@@ -303,7 +306,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.robotCorrect(0.5, -45, 0.65);
 
                     // Drive back to shoot
-                    drive.driveDistance(0.7, 180, 50);
+                    drive.driveDistance(0.7, 180, 54);
 
                     if (opModeIsActive()) {
                         state = State.SHOOT_RINGS;
@@ -319,6 +322,9 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.shootRings();
                     drive.shooterControl(0);
                     drive.PIDRotate(0, 0.5);
+
+                    // turn off the shooter to conserve battery
+                    drive.shooterControl(0);
                     if (opModeIsActive()) {
                         state = State.PARK;
                     } else {
@@ -350,6 +356,10 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     sleep(1000);
                     drive.PIDRotate(-5, 0.5);
                     drive.shootRings();
+
+                    // turn off the shooter to conserve battery
+                    drive.shooterControl(0);
+
                     state = State.PARK;
                     break;
 
@@ -366,8 +376,8 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.driveSimpleDistance(0.5, 0, 10);
 
                     //Arc turn towards the target zone
-                    drive.setDrivePower(-0.5,-0.1, -0.1, -0.5);
-                    sleep(2500);
+                    drive.setDrivePower(-0.5,-0.3, -0.3, -0.5);
+                    sleep(2200);
                     drive.motorsHalt();
 
                     state = State.FIELD_HG;
@@ -380,7 +390,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
 
                     //Arc turn into the second target zone
                     drive.setDrivePower(0.5,0.38, 0.38, 0.5);
-                    sleep(2500);
+                    sleep(2300);
                     drive.motorsHalt();
 
                     // drive to park location
@@ -432,7 +442,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.driveDistance(0.5, 90, parkStrafeDistance);
 
                     // Drive forward to the line to park
-                    drive.driveDistance(0.5, 0, 20);
+                    drive.driveDistance(0.5, 0, 15);
 
                     state = State.HALT;
 
