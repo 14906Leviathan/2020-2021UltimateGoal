@@ -37,7 +37,7 @@ public class HardwareProfile {
     public final double SERVO_LINEAR_PS_SHOOT = 0.35;
     public final double SERVO_LINEAR_INTAKE = 0.65;
     public final double SERVO_LINEAR_AUTO_SHOOT = 0.5;
-    public final double SERVO_WOBBLE_GRAB_OPEN = 0.5;
+    public final double SERVO_WOBBLE_GRAB_OPEN = 0.1;
     public final double SERVO_WOBBLE_GRAB_CLOSE = 0.9;
 
 
