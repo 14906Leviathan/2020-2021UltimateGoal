@@ -205,6 +205,8 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
                     telemetry.addData("Position = ", position);
                     telemetry.update();
 
+                    sleep(0);       // adjust the sleep time to start running the match
+
                     // Decide the next state based on the number of rings on the floor
                     if(opModeIsActive()) {
                         if(startPosition.equals("WALL")){
@@ -264,22 +266,29 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                 case WOBBLE1B:
                     // set the distance you want to strafe to get to parking position
-                    parkStrafeDistance = 30;
+                    parkStrafeDistance = 0;
 
+                    robot.servoLinear.setPosition(robot.SERVO_LINEAR_HG_SHOOT);
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
                     // Drive to target zone B
-                    drive.driveDistance(0.8, 0, 60);
+                    drive.driveDistance(0.8, 0, 55);
 
                     // Strafe to place the wobble goal
-                    drive.robotCorrect(0.5, -45, 1.5);
+//                    drive.robotCorrect(0.5, -45, 1.5);
+                    drive.setDrivePower(0.75, 0.38, 0.38, 0.75);
+                    sleep(1100);
+
+                    drive.setDrivePower(-0.75, -0.38, -0.38, -0.75);
+                    sleep(1100);
+                    drive.motorsHalt();
 
                     // Return to shooting position
                     // Drive back to avoid hitting the wobble goal
-                    drive.driveDistance(0.8, 180, 30);
+                    drive.driveDistance(0.8, 180, 0);
 
                     // Strafe towards the wall - avoiding rings on the field
-                    drive.driveDistance(.6, 90, 28);
+                    drive.driveDistance(.6, 90, 5);
 
                     // Strafe towards the wall - avoiding rings on the field
                     drive.robotCorrect(0.6, 90, 1);
@@ -294,7 +303,7 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                 case WOBBLE1C:
                     // set the distance you want to strafe to get to parking position
-                    parkStrafeDistance = 30;
+                    parkStrafeDistance = 0;
 
                     robot.servoLinear.setPosition(robot.SERVO_LINEAR_HG_SHOOT);
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
@@ -318,8 +327,10 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                 case SHOOT_RINGS:
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
-                    drive.PIDRotate(-15, 0.5);
+                    drive.PIDRotate(-10, 0.5);
                     drive.shootRings();
+//                    sleep(5000);
+
                     drive.shooterControl(0);
                     drive.PIDRotate(0, 0.5);
 
@@ -333,10 +344,10 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
                     break;
 
                 case FIELD_HG:
-                    robot.servoLinear.setPosition(robot.SERVO_LINEAR_HG_SHOOT);
+                    robot.servoLinear.setPosition(robot.SERVO_LINEAR_REDHG_SHOOT);
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
-                    sleep(1000);
-                    drive.PIDRotate(5, 0.5);
+                    sleep(3000);
+                    drive.PIDRotate(20, 0.5);
                     drive.shootRings();
 
                     // turn off the shooter to conserve battery
@@ -376,7 +387,7 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
                     drive.motorsHalt();
 
                     // drive to park location
-                    drive.driveSimpleDistance(0.5, 180, 30);
+                    drive.driveSimpleDistance(0.5, 180, 33);
 
                     state = State.FIELD_HG;
 
@@ -413,9 +424,10 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
                     // Add function to wait till there is 5 seconds left
                     // Reset Linear servo
                     robot.servoLinear.setPosition(robot.SERVO_LINEAR_INTAKE);
+                    drive.PIDRotate(0, 0.5);
 
                     // wait until there is only 5 seconds left to park
-                    while ((runTime.time()-startTime) <= 25) {
+                    while (((runTime.time()-startTime) <= 25) && opModeIsActive()) {
                         telemetry.addData("Waiting to park: ", (25 - (runTime.time()-startTime)));
                         telemetry.update();
                     }   // end of while ((runTime.time()-startTime) <= 25)

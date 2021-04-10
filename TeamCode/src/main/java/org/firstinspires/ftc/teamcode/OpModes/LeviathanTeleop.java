@@ -26,6 +26,7 @@ public class LeviathanTeleop extends LinearOpMode {
         boolean fieldCentric = false;
         boolean intake = false;
         boolean intakeForward = true;
+        boolean intakeHalf = false;
         boolean shooter = false;
         double armPosition = 0.2;
         double currentRPM;
@@ -125,7 +126,7 @@ public class LeviathanTeleop extends LinearOpMode {
             }
 
             if(gamepad2.x) {
-                linearServoPosition = robot.SERVO_LINEAR_HG_SHOOT;
+                linearServoPosition = robot.SERVO_LINEAR_TELEOP_SHOOT;
             }
             if (gamepad2.y){
                 linearServoPosition = robot.SERVO_LINEAR_INTAKE;
@@ -153,7 +154,11 @@ public class LeviathanTeleop extends LinearOpMode {
 
             if (intake){
                 if (intakeForward) {
-                    robot.motorIntake.setPower(1);
+                    if(intakeHalf){
+                        robot.motorIntake.setPower(0.5);
+                    } else {
+                        robot.motorIntake.setPower(1);
+                    }
                 } else {
                     robot.motorIntake.setPower(-1);
                 }
@@ -165,10 +170,12 @@ public class LeviathanTeleop extends LinearOpMode {
                 robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_UP);
                 sleep(100);
                 intake = true;
+                intakeHalf = true;
                 intakeForward = true;
 
             } else {
                 robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_DOWN);
+                intakeHalf = false;
                // intake = false;
             }
 
@@ -183,6 +190,7 @@ public class LeviathanTeleop extends LinearOpMode {
             telemetry.addData("V3 = ", v3);
             telemetry.addData("V4 = ", v4);
 
+            telemetry.addData("linearservo = ", robot.servoLinear.getPosition());
             telemetry.addData("motorLF = ", robot.motorLF.getCurrentPosition());
             telemetry.addData("motorLR = ", robot.motorLR.getCurrentPosition());
             telemetry.addData("motorRF = ", robot.motorRF.getCurrentPosition());

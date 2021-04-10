@@ -626,8 +626,8 @@ public class DriveMecanum {
         // fire the rings
         robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_UP);
         opMode.sleep(200);
-        robot.motorIntake.setPower(1);
-        opMode.sleep(2000);
+        robot.motorIntake.setPower(0.5);
+        opMode.sleep(6000);
         robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_DOWN);
         // Decide the next state based on the number of rings on the floor
 

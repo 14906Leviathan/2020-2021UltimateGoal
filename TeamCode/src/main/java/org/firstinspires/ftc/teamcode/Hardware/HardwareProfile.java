@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -33,7 +34,9 @@ public class HardwareProfile {
     public final double SERVO_SHOOTER_UP = 0.3;
     public final double SERVO_SHOOTER_DOWN = 0.6;
     public final double SERVO_LINEAR_INITIALIZED = 0.75;
-    public final double SERVO_LINEAR_HG_SHOOT = 0.4;
+    public final double SERVO_LINEAR_HG_SHOOT = 0.46;
+    public final double SERVO_LINEAR_TELEOP_SHOOT = 0.40;
+    public final double SERVO_LINEAR_REDHG_SHOOT = 0.46;
     public final double SERVO_LINEAR_PS_SHOOT = 0.35;
     public final double SERVO_LINEAR_INTAKE = 0.65;
     public final double SERVO_LINEAR_AUTO_SHOOT = 0.5;
@@ -80,7 +83,7 @@ public class HardwareProfile {
 
      */
 
-//        public RevBlinkinLedDriver LEDPort;
+    public RevBlinkinLedDriver LEDPort;
 
         /*
          * Declare Odometry hardware
@@ -90,10 +93,10 @@ public class HardwareProfile {
 //        public DcMotor horizontalOdometry = null;
 
 
-        /* Constructor */
-        public HardwareProfile() {
+    /* Constructor */
+    public HardwareProfile() {
 
-        }
+    }
 
     public void init(HardwareMap ahwMap) {
 
