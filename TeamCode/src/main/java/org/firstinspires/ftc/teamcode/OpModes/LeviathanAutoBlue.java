@@ -128,7 +128,7 @@ public class LeviathanAutoBlue extends LinearOpMode {
 
                         telemetry.addData("Size = ", updatedRecognitions.size());
                         telemetry.addData("Label = ", recognition.getLabel());
-                        if (recognition.getLabel() == "Quad") position = 3;
+                        if (recognition.getLabel().equals("Quad")) position = 3;
                         else if (recognition.getLabel() == "Single") position = 2;
                         else position = 1;
                     }     //  for(Recognition recognition)
@@ -138,9 +138,7 @@ public class LeviathanAutoBlue extends LinearOpMode {
                 }   else {
                     position = 1;
                 }   // if(updatedRecognitions != null)
-
             }   // if(tfod != null)
-
         }
 
         waitForStart();

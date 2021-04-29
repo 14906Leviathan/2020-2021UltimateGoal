@@ -27,9 +27,9 @@ public class HardwareProfile {
     private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;    // circumference in inches
     public final double DRIVE_TICKS_PER_INCH = DRIVE_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE;
 
-    public final double TARGET_SHOOTER_RPM = 5000;       // from goBilda website
+    public final double TARGET_SHOOTER_RPM = 5500;       // from goBilda website
     public final double AUTO_SHOOTER_RPM = 5000;
-    public final double AUTO_SHOOTER_PS_RPM = 4000;
+    public final double AUTO_SHOOTER_PS_RPM = 5000;
 
     public final double SERVO_SHOOTER_UP = 0.3;
     public final double SERVO_SHOOTER_DOWN = 0.6;

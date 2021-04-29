@@ -4,9 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.util.ReadWriteFile;
 
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.Hardware.HardwareProfile;
 import org.firstinspires.ftc.teamcode.Libs.DriveMecanum;
+
+import java.io.File;
 
 @TeleOp(name = "Teleop Mode", group = "Leviathan")
 
@@ -23,10 +27,11 @@ public class LeviathanTeleop extends LinearOpMode {
         double r;
         double rightX, rightY;
         double peakPower = 0.30;
-        boolean fieldCentric = false;
+        boolean fieldCentric = true;
         boolean intake = false;
         boolean intakeForward = true;
         boolean intakeHalf = false;
+        String alliance = "BLUE";
         boolean shooter = false;
         double armPosition = 0.2;
         double currentRPM;
@@ -35,8 +40,7 @@ public class LeviathanTeleop extends LinearOpMode {
         double currentTime=0;
         double rotationAngle = 0;
         double linearServoPosition = robot.SERVO_LINEAR_INTAKE;
-
-        //      robot.servoIntake.setPosition(0);
+        File allianceFile = AppUtil.getInstance().getSettingsFile("allianceFile.txt");
 
         robot.init(hardwareMap);
 
@@ -50,9 +54,19 @@ public class LeviathanTeleop extends LinearOpMode {
 
         robot.servoRingStopper.setPosition(0.6);
 
+        try {
+            alliance = ReadWriteFile.readFile(allianceFile);
+        } catch (Exception e) {
+            alliance = "BLUE";
+        }
+
+        if (alliance == "BLUE"){
+            robotAngle = 180;
+        }
 
         waitForStart();
         currentTime = runTime.time();
+        shooter=true;
 
         while (opModeIsActive()) {
 
@@ -60,9 +74,9 @@ public class LeviathanTeleop extends LinearOpMode {
              * Mecanum Drive Control section
              */
             if (fieldCentric) {             // verify that the user hasn't disabled field centric drive
-                theta = robot.imu.getAngularOrientation().firstAngle;
+                theta = robot.imu.getAngularOrientation().firstAngle + rotationAngle;
             } else {
-                theta = 0 + rotationAngle;      // do not adjust for the angular position of the robot
+                theta = 0;      // do not adjust for the angular position of the robot
             }
             robotAngle = Math.atan2(gamepad1.left_stick_y, (-gamepad1.left_stick_x)) - Math.PI / 4;
             rightX = gamepad1.right_stick_x;
@@ -125,15 +139,6 @@ public class LeviathanTeleop extends LinearOpMode {
                 sleep(200);
             }
 
-            if(gamepad2.x) {
-                linearServoPosition = robot.SERVO_LINEAR_TELEOP_SHOOT;
-            }
-            if (gamepad2.y){
-                linearServoPosition = robot.SERVO_LINEAR_INTAKE;
-            }
-
-            robot.servoLinear.setPosition(linearServoPosition);
-
             if (gamepad1.left_trigger >0.2 & elapsedTime > 0.5) {
                 currentTime = runTime.time();
                 if (intake) {
@@ -168,14 +173,9 @@ public class LeviathanTeleop extends LinearOpMode {
 
             if (gamepad1.right_bumper) {
                 robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_UP);
-                sleep(100);
-                intake = true;
-                intakeHalf = true;
-                intakeForward = true;
-
+                sleep(150);
             } else {
                 robot.servoRingStopper.setPosition(robot.SERVO_SHOOTER_DOWN);
-                intakeHalf = false;
                // intake = false;
             }
 
