@@ -233,7 +233,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                             drive.driveDistance(0.5, 0, 40);
 
                             // prep for shooting
-                            drive.shooterControl(robot.AUTO_SHOOTER_PS_RPM);
+                            drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
                             // decide which target zone to place the wobble goal
                             if (position == 3) {
@@ -258,10 +258,10 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.robotCorrect(0.5, -45, 0.65);
 
                     // Drive to target zone A
-                    drive.driveDistance(0.5, 0, 55);
+                    drive.driveDistance(0.5, 0, 50);
 
                     // Drive back to shoot
-                    drive.driveDistance(0.5, 180, 10);
+                    drive.driveDistance(0.5, 180, 7);
 
                     if (opModeIsActive()) {
                         state = State.SHOOT_RINGS;
@@ -278,16 +278,16 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
                     // Drive to target zone B
-                    drive.driveDistance(0.8, 0, 60);
+                    drive.driveDistance(0.8, 0, 55);
 
                     // arc turn to place the wobble goal
-                    drive.setDrivePower(0.4, 0.65, 0.65, 0.4);
-                    sleep(1100);
+                    drive.setDrivePower(0.32, 0.65, 0.65, 0.32);
+                    sleep(1350);
                     drive.motorsHalt();
 
                     // arc turn to return to shooting zone
-                    drive.setDrivePower(-0.4, -0.65, -0.65, -0.4);
-                    sleep(1100);
+                    drive.setDrivePower(-0.32, -0.65, -0.65, -0.32);
+                    sleep(1350);
                     drive.motorsHalt();
 
                     // Move to shooting position
@@ -297,7 +297,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.driveDistance(.6, -90, 5);
 
                     // Strafe towards the wall - avoiding rings on the field
-                    drive.robotCorrect(0.6, -90, 1);
+                    drive.robotCorrect(0.6, -90, .3);
 
                     if (opModeIsActive()) {
                         state = State.SHOOT_RINGS;
@@ -333,7 +333,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
 
                 case SHOOT_RINGS:
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
-                    drive.PIDRotate(20, 0.5);
+                    drive.PIDRotate(10, 0.5);
                     drive.shootRings();
                     sleep(300);
                     drive.shootRings();
@@ -357,7 +357,7 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
 //                    robot.servoLinear.setPosition(robot.SERVO_LINEAR_HG_SHOOT);
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
                     sleep(3500);
-                    drive.PIDRotate(-10, 0.5);
+                    drive.PIDRotate(-12, 0.5);
                     drive.shootRings();
                     sleep(300);
                     drive.shootRings();
@@ -397,11 +397,11 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
 
                     //Arc turn into the second target zone
                     drive.setDrivePower(0.5,0.38, 0.38, 0.5);
-                    sleep(2300);
+                    sleep(2200);
                     drive.motorsHalt();
 
                     // drive to park location
-                    drive.driveSimpleDistance(0.5, 180, 30);
+                    drive.driveSimpleDistance(0.5, 180, 35);
 
                     state = State.FIELD_HG;
 
@@ -420,11 +420,11 @@ public class LeviathanAutoInPersonBlue extends LinearOpMode {
                     drive.driveSimpleDistance(0.8, 0, 15);
 
                     // back away from the wobble goals
-                    drive.driveSimpleDistance(0.5, 180, 18);
+                    drive.driveSimpleDistance(0.8, 180, 15);
 
                     // Arc turn to the last target zone
                     drive.setDrivePower(-0.5,-0.35, -0.35, -0.5);
-                    sleep(2000);
+                    sleep(2500);
                     drive.motorsHalt();
 
                     // Reorient robot angle to face the line.

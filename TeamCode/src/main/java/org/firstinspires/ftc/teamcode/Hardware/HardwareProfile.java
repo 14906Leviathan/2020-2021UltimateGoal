@@ -28,7 +28,7 @@ public class HardwareProfile {
     public final double DRIVE_TICKS_PER_INCH = DRIVE_TICKS_PER_ROTATION / WHEEL_CIRCUMFERENCE;
 
     public final double TARGET_SHOOTER_RPM = 5500;       // from goBilda website
-    public final double AUTO_SHOOTER_RPM = 5000;
+    public final double AUTO_SHOOTER_RPM = 5200;
     public final double AUTO_SHOOTER_PS_RPM = 5000;
 
     public final double SERVO_SHOOTER_UP = 0.3;
@@ -40,7 +40,7 @@ public class HardwareProfile {
     public final double SERVO_LINEAR_PS_SHOOT = 0.35;
     public final double SERVO_LINEAR_INTAKE = 0.65;
     public final double SERVO_LINEAR_AUTO_SHOOT = 0.5;
-    public final double SERVO_WOBBLE_GRAB_OPEN = 0.1;
+    public final double SERVO_WOBBLE_GRAB_OPEN = 0.5;
     public final double SERVO_WOBBLE_GRAB_CLOSE = 0.9;
 
 

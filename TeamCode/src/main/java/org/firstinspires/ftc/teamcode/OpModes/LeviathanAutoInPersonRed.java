@@ -278,14 +278,14 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
 
                     // Drive to target zone B
-                    drive.driveDistance(0.8, 0, 55);
+                    drive.driveDistance(0.8, 0, 50);
 
                     // Strafe to place the wobble goal
-                    drive.setDrivePower(0.75, 0.38, 0.38, 0.75);
-                    sleep(1100);
+                    drive.setDrivePower(0.75, 0.35, 0.35, 0.75);
+                    sleep(1200);
 
                     drive.setDrivePower(-0.75, -0.38, -0.38, -0.75);
-                    sleep(1100);
+                    sleep(1200);
                     drive.motorsHalt();
 
                     // Return to shooting position
@@ -331,7 +331,7 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                 case SHOOT_RINGS:
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
-                    drive.PIDRotate(-10, 0.5);
+                    drive.PIDRotate(-15, 0.5);
                     drive.shootRings();
                     sleep(300);
                     drive.shootRings();
@@ -353,7 +353,7 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                 case FIELD_HG:
                     drive.shooterControl(robot.AUTO_SHOOTER_RPM);
-                    drive.PIDRotate(20, 0.5);
+                    drive.PIDRotate(15, 0.5);
                     drive.shootRings();
                     sleep(300);
                     drive.shootRings();
@@ -414,6 +414,9 @@ public class LeviathanAutoInPersonRed extends LinearOpMode {
 
                     // push the wobble goal into the target zone
                     drive.driveSimpleDistance(0.8, 0, 15);
+
+                    // back away from the wobble goal
+                    drive.driveSimpleDistance(0.8, 180, 15);
 
                     // back away from the wobble goals
                     drive.driveSimpleDistance(0.5, 180, 15);

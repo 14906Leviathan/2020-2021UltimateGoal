@@ -27,7 +27,7 @@ public class LeviathanTeleop extends LinearOpMode {
         double r;
         double rightX, rightY;
         double peakPower = 0.30;
-        boolean fieldCentric = true;
+        boolean fieldCentric = false;
         boolean intake = false;
         boolean intakeForward = true;
         boolean intakeHalf = false;
